@@ -2,12 +2,11 @@ import React from "react";
 import styled from 'styled-components';
 
 const Button = styled.section`
-    width: 100px;
-    height: 100px;
+    width: 20vw;
+    height: 20vh;
     background: red;
-    margin: 50px;
-    position: relative;
-    z-index: 1;
+    margin: 1vw;
+    margin-top: 10vh;
 `
 
 const Card = ({type})=>{

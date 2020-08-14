@@ -1,21 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Styles from "../styles/OrderStyles";
 import Resume from "./Resume";
 import Card from "./Card";
-
+import Methods from "../behaviours/arrays";
 
 
 const Order = ()=> {
 
-    const [mock, changeMock] = useState([
-        {name:"hola1"},
-        {name:"hola2"},
-        {name:"hola3"}
-    ])
+    const [mock, changeMock] = useState([])
 
     const handleClick = (e)=>{
-        changeMock([...mock,{name:e.target.title}])
+        let aux = mock;
+        let res = Methods.listCreation(aux,{name:e.target.title, count:1})
+        changeMock([...res])
     }
 
     return (
