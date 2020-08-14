@@ -1,5 +1,6 @@
 import React from "react";
 import { useState,useEffect } from "react";
+import Methods from "../behaviours/arrays";
 
 const Resume = ({list})=>{
 
@@ -8,7 +9,13 @@ const Resume = ({list})=>{
     useEffect(()=>(
         changeOrderList(list)
     ),[list])
-    
+
+    const handleMinus = (e)=>{
+        let aux = list
+        aux = Methods.removeItem(aux, e.target.name)
+        changeOrderList([...aux])
+    }
+
     return (
         <ul>
             {orderList.map((item,index)=>(

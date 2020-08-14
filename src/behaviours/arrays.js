@@ -12,6 +12,10 @@ const Methods = {
             }
         }
         return list       
+    },
+    removeItem: function (item, index) {
+        item[index].count > 1 ? item[index].count-- : item.splice(index,1)
+        return item
     }
 }
 
