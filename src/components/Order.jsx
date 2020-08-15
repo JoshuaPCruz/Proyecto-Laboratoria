@@ -9,11 +9,32 @@ import Methods from "../behaviours/arrays";
 const Order = ()=> {
 
     const [mock, changeMock] = useState([])
+    const [menu, changeMenu] = useState([
+        {name: "egg"},
+        {name: "milk"}
+    ])
 
     const handleClick = (e)=>{
+        const meal = [
+            {name: "hamburger"},
+            {name: "soda"}
+        ]
+        const breakfast = [
+            {name: "egg"},
+            {name: "milk"},
+            {name: "juice"}
+        ]
         let aux = mock;
-        let res = Methods.listCreation(aux,{name:e.target.title, count:1})
-        changeMock([...res])
+        console.log(e.target)
+        console.log(this)
+        e.target.name === "meal" ? 
+        changeMenu(meal) : 
+        (e.target.name === "breakfast"?
+        changeMenu(breakfast):'')
+        aux = Methods.listCreation(aux,{name:e.target.title, count:1, price: (name, count)=>{
+            return Methods.priceCalculation(name,count)
+        }})
+        changeMock([...aux])
     }
 
     return (
@@ -24,10 +45,15 @@ const Order = ()=> {
                 </section>
                 <Styles.MainDashboard>
                     <Styles.Menu onClick={handleClick}>
-                        <Card type="hamburguesa"></Card>
-                        <Card type="soda"></Card>
-                        <Card type="sandwich"></Card>
-                        <Card type="egg"></Card>
+                        <div>
+                            <button name="breakfast">DESAYUNO</button>
+                            <button name="meal">RESTO DEL DIA</button>
+                        </div>
+                        <Styles.MenuItems>
+                            {menu.map((item, index)=>(
+                                <Card key={index} name={item.name}></Card>
+                            ))}
+                        </Styles.MenuItems>
                     </Styles.Menu>
                     <Resume list={mock}></Resume>
                 </Styles.MainDashboard>

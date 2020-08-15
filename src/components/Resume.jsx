@@ -1,6 +1,17 @@
 import React from "react";
+import styled from 'styled-components';
 import { useState,useEffect } from "react";
 import Methods from "../behaviours/arrays";
+
+
+const OrderItem = styled.div`
+    display: flex;
+    justify-content: space-around;
+`
+
+function showAlert(message) {
+    alert(JSON.stringify(message[0]))
+}
 
 const Resume = ({list})=>{
 
@@ -17,17 +28,25 @@ const Resume = ({list})=>{
     }
 
     return (
-        <ul>
-            {orderList.map((item,index)=>(
-            <div key={`${index}div`}>
-                <button key={`${index}plus`}>+</button>
-                <button key={`${index}minus`} name={index} onClick={function(e){handleMinus(e)}}>-</button>
-                <p key={index}>{item.name}</p>
-                <p>{item.count}</p>
+        <React.Fragment>
+            <div>
+                <ul>
+                    {orderList.map((item,index)=>(
+                    <OrderItem key={`${index}div`}>
+                        <div>
+                            <button key={`${index}plus`}>+</button>
+                            <button key={`${index}minus`} name={index} onClick={function(e){handleMinus(e)}}>-</button>
+                        </div>
+                        <p>{item.count}</p>
+                        <p key={index}>{item.name}</p>
+                        <p>{item.price(item.name, item.count)}</p>
+                    </OrderItem>
+                    ))
+                    }
+                </ul>
+                <button onClick={function(){showAlert(orderList)}}>ENVIAR</button>  
             </div>
-            ))
-            }
-        </ul>
+        </React.Fragment>
     )
 }
 

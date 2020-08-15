@@ -11,12 +11,17 @@ const Styles = {
     MainDashboard: styled.section`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100vh;
+    height: 100vh
 `,
-    Menu: styled.div`
+    Menu: styled.section`
+    display: grid;
+    grid-template-rows: .01fr 1fr;
+    height: 100vh;
+    `,
+    MenuItems: styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-content: flex-start
     `
 }
