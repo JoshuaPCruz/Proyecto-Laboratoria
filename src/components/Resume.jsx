@@ -14,6 +14,9 @@ const GeneralOrder = styled.div`
     flex-direction: column;
     justify-content: space-around;
 `
+const OrderList = styled.ul`
+    overflow: scroll
+`
 
 const Resume = ({list})=>{
 
@@ -51,10 +54,14 @@ const Resume = ({list})=>{
     return (
         <React.Fragment>
             <GeneralOrder>
-                <ul>
+                <OrderList>
                     {orderList.map((item,index)=>(
                     <OrderItem key={`${index}div`}>
                         <div>
+                            {(item.complexity === 'yes')?
+                            <button key={`${index}pencil`} name={index} onClick={function(e){handlePlus(e)}}>pencil</button>:
+                            ''
+                            }
                             <button key={`${index}plus`} name={index} onClick={function(e){handlePlus(e)}}>+</button>
                             <button key={`${index}minus`} name={index} onClick={function(e){handleMinus(e)}}>-</button>
                         </div>
@@ -69,7 +76,7 @@ const Resume = ({list})=>{
                     ''
                     }
                     
-                </ul>
+                </OrderList>
                 {(orderList.length > 0)?
                     <button onClick={function(){console.log(orderList[0].price())}}>ENVIAR</button>:
                     ''

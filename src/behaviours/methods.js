@@ -7,19 +7,21 @@ function priceCalculation(name, count) {
             return value.name === name 
         }))
     }
-    
+    res = res.filter((value)=>(value.length > 0))
     return res[0][0].price*count
 }
 
 
-function Recipe(name, count, extras) {
+function Recipe(name, count, extras, complexity) {
     this.name = name
     this.count = count
+    this.complexity = complexity
     this.extras = extras
     this.res = (name = this.name, lastName = this.count)=>{
         return ({
             name: name,
             count: lastName,
+            complexity: this.complexity,
             price: this.price(),
             extras: this.extras
         })
@@ -57,7 +59,7 @@ const Methods = {
             list.push(object)
         }else{
             if(list.some((item)=>item.name == object.name)){
-                
+                console.log(list)
                 list.map((item)=>{
                     item.name === object.name ? item.count = item.count+1 : ''
                     item.price(item.name,item.count)

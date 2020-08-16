@@ -6,9 +6,9 @@ const CONST = {
         {name: "Jugo natural", complexity: 'no', price:7}
     ],
     MEAL: [
-        {name: "hamburguesa", complexity: 'yes', extras:[['simple','doble'],['papas fritas','onion rings']]},
-        {name: "agua", complexity: 'yes'},
-        {name: "gaseosa", complexity: 'yes'}
+        {name: "hamburguesa", complexity: 'yes', extras:[['simple','doble'],['papas fritas','onion rings']], price:5},
+        {name: "agua", complexity: 'yes', price:5},
+        {name: "gaseosa", complexity: 'yes', price:5}
     ]
 }
 

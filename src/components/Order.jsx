@@ -32,9 +32,14 @@ const Order = ()=> {
         switch (e.target.dataset.complexity) {
             case 'yes':
                 changeVariants('flex')
+                resultado = Methods.factory(e.target.title)
+                resultado.complexity = 'yes'
+                aux = Methods.listCreation(aux,resultado)
+                changeMock([...aux])
                 break;
             case 'no':
                 resultado = Methods.factory(e.target.title)
+                resultado.complexity = 'no'
                 aux = Methods.listCreation(aux,resultado)
                 changeMock([...aux])
                 break;
