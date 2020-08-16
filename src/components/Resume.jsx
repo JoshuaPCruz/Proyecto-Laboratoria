@@ -1,25 +1,30 @@
 import React from "react";
 import styled from 'styled-components';
 import { useState,useEffect } from "react";
-import Methods from "../behaviours/arrays";
+import Methods from "../behaviours/methods";
 
 
 const OrderItem = styled.div`
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 `
 
-function showAlert(message) {
-    alert(JSON.stringify(message[0]))
-}
+const GeneralOrder = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+`
 
 const Resume = ({list})=>{
 
     const [orderList,changeOrderList] = useState(list)
+    const [check,changeTotal] = useState(0)
 
-    useEffect(()=>(
+    useEffect(()=>{
         changeOrderList(list)
-    ),[list])
+        changeTotal(total())
+    }
+    ,[list, orderList])
 
     const handleMinus = (e)=>{
         let aux = list
@@ -27,14 +32,30 @@ const Resume = ({list})=>{
         changeOrderList([...aux])
     }
 
+    const handlePlus = (e)=>{
+        let aux = list
+        aux = Methods.addItem(aux, e.target.name)
+        changeOrderList([...aux])
+    }
+
+    const total = ()=>{
+        let res = orderList.map((value)=>(value.price()))
+        console.log(res)
+        res.length !== 0 ?
+        res = res.reduce((actual, next)=>(parseInt(actual)+parseInt(next))):
+        ''
+        return res
+    }
+
+
     return (
         <React.Fragment>
-            <div>
+            <GeneralOrder>
                 <ul>
                     {orderList.map((item,index)=>(
                     <OrderItem key={`${index}div`}>
                         <div>
-                            <button key={`${index}plus`}>+</button>
+                            <button key={`${index}plus`} name={index} onClick={function(e){handlePlus(e)}}>+</button>
                             <button key={`${index}minus`} name={index} onClick={function(e){handleMinus(e)}}>-</button>
                         </div>
                         <p>{item.count}</p>
@@ -43,9 +64,17 @@ const Resume = ({list})=>{
                     </OrderItem>
                     ))
                     }
+                    {(orderList.length > 0)?
+                    <p>TOTAL {check}</p>:
+                    ''
+                    }
+                    
                 </ul>
-                <button onClick={function(){showAlert(orderList)}}>ENVIAR</button>  
-            </div>
+                {(orderList.length > 0)?
+                    <button onClick={function(){console.log(orderList[0].price())}}>ENVIAR</button>:
+                    ''
+                }
+            </GeneralOrder>
         </React.Fragment>
     )
 }

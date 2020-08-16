@@ -2,13 +2,17 @@ import styled from "styled-components";
 
 
 const Styles = {
-    Dashboard: styled.main`
+    HeaderDashboard: styled.header`
+    display: flex;
+    justify-content: flex-end;
+`,
+    Dashboard: styled.section`
     display: flex;
     flex-direction: column;
     height: 100vh;
 `,
 
-    MainDashboard: styled.section`
+    MainDashboard: styled.main`
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 100vh
@@ -17,13 +21,18 @@ const Styles = {
     display: grid;
     grid-template-rows: .01fr 1fr;
     height: 100vh;
-    `,
+`,
     MenuItems: styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-content: flex-start
-    `
+`,
+    ModalVariants: styled.div`
+    display: ${props=> props.hidde};
+    position: fixed;
+    
+    `    
 }
 
 export default Styles;

@@ -14,11 +14,11 @@ const CardContainer = styled.div`
 `
 
 
-const Card = ({type, name})=>{
+const Card = ({type, name, complexity})=>{
     return (
         <CardContainer>
-            <ButtonMenu title={name}>
-                <p title={name}>{name}</p>
+            <ButtonMenu name={name} data-complexity={complexity} title={name}>
+                <p name={name} title={name} data-complexity={complexity} >{name}</p>
             </ButtonMenu>
         </CardContainer>
     )
