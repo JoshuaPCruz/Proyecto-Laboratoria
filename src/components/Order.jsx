@@ -1,12 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Styles from "../styles/OrderStyles";
 import Resume from "./Resume";
 import Card from "./Card";
 import Methods from "../behaviours/methods";
 import CONST from "../behaviours/constants";
 import Modal from "./Modal";
-import styled from "styled-components";
 
 
 const Order = ()=> {
@@ -14,10 +13,55 @@ const Order = ()=> {
     const [mock, changeMock] = useState([])
     const [variants, changeVariants] = useState('none')
     const [menu, changeMenu] = useState(CONST.BREAKFAST)
+    const [modalLista, changeModalLista] = useState({extras:[[{name:'test'}]]})
+    const [ordenCompleta, changeOrden] = useState([])
+    const [recipe, changeRecipe] = useState('')
+
+
+    useEffect(()=>{
+        let aux = ordenCompleta
+        let auxMock = mock
+        
+        if(aux.length !== 0){
+            aux = aux.map((item)=>{
+                return item.filter((value)=>{
+                    return value.selected == true
+                })  
+            })
+            let name = ''
+            let nombre = aux.filter((value)=>{return value.length === 1})
+            nombre = nombre.map((value)=>{
+                return name += ` y ${value[0].name}`
+            })
+            aux = aux.map((item)=>{
+                return item.length !== 0 ?
+                (item.reduce((actual, newValue)=>{
+                    return actual.price + newValue.price
+                })): {price:0};
+            })
+
+            aux = aux.map((item)=>{
+                return item.price
+            })
+            aux = aux.reduce((total, value)=>{
+                return total + value
+            })
+            console.log(ordenCompleta)
+            let resultado = Methods.factory({extraPrice: 0, name: `${recipe}${name} `, count:1, complexity: 'yes', extras:ordenCompleta, priceBase:5},)
+            resultado.extraPrice = aux
+            resultado.complexity = 'yes'
+            auxMock = Methods.listCreation(auxMock,resultado)
+            changeMock([...auxMock])
+        }
+        changeVariants('none')
+    },[ordenCompleta])
+
 
     const handleClick = (e)=>{
         let aux = mock;
         let resultado;
+        let auxMenu = menu
+
         switch (e.target.name) {
             case "meal":
                 changeMenu(CONST.MEAL)
@@ -28,14 +72,18 @@ const Order = ()=> {
             default:
                 break;
         }
+        
         e.target.title === 'exit' ? changeVariants('none'):'';
+        if(e.target.title === 'send') return 0
+
         switch (e.target.dataset.complexity) {
             case 'yes':
+                changeRecipe(e.target.title) 
+                auxMenu = auxMenu.filter((value)=>{
+                    return value.name === e.target.title
+                })
+                changeModalLista(auxMenu[0])
                 changeVariants('flex')
-                resultado = Methods.factory(e.target.title)
-                resultado.complexity = 'yes'
-                aux = Methods.listCreation(aux,resultado)
-                changeMock([...aux])
                 break;
             case 'no':
                 resultado = Methods.factory(e.target.title)
@@ -48,7 +96,6 @@ const Order = ()=> {
         }
     }
 
-    const aux = [['variante1','variante2','variante1','variante2','variante1','variante2'],['variante1','variante2'],['variante1','variante2'],['variante1','variante2','variante3']]
 
 
     return (
@@ -59,7 +106,7 @@ const Order = ()=> {
                 </Styles.HeaderDashboard>
                 <Styles.MainDashboard>
                     <Styles.ModalVariants hidde={variants}  onClick={handleClick}>
-                        <Modal lista={aux}></Modal>
+                        <Modal lista={modalLista} ordenCompleta={function(recipe,item){changeRecipe(recipe); changeOrden(item);}}></Modal>
                     </Styles.ModalVariants>
                     <Styles.Menu onClick={handleClick}>
                         <div>
@@ -68,11 +115,11 @@ const Order = ()=> {
                         </div>
                         <Styles.MenuItems>
                             {menu.map((item, index)=>(
-                                <Card key={index} name={item.name} complexity={item.complexity}></Card>
+                                <Card key={index} name={item.name} complexity={item.complexity} ></Card>
                             ))}
                         </Styles.MenuItems>
                     </Styles.Menu>
-                    <Resume list={mock}></Resume>
+                    <Resume list={mock} variants={function(value, modalItems){changeVariants(value); changeModalLista(modalItems)}}></Resume>
                 </Styles.MainDashboard>
             </Styles.Dashboard>
         </React.Fragment>

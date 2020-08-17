@@ -6,6 +6,7 @@ const Container = createGlobalStyle`
     body {
         padding: 0;
         margin: 0;
+        touch-action: none;
     }
 `;
 

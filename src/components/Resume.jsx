@@ -18,7 +18,7 @@ const OrderList = styled.ul`
     overflow: scroll
 `
 
-const Resume = ({list})=>{
+const Resume = ({list, variants})=>{
 
     const [orderList,changeOrderList] = useState(list)
     const [check,changeTotal] = useState(0)
@@ -41,13 +41,30 @@ const Resume = ({list})=>{
         changeOrderList([...aux])
     }
 
+    const handleVariants = (e)=>{
+        let aux = variants
+        const extras = orderList[e.target.name]
+        console.log(extras)
+        aux('yes', extras)
+    }
+
     const total = ()=>{
         let res = orderList.map((value)=>(value.price()))
-        console.log(res)
         res.length !== 0 ?
         res = res.reduce((actual, next)=>(parseInt(actual)+parseInt(next))):
         ''
         return res
+    }
+    const extras = (item)=>{
+        let aux = item.map((value)=>{
+            return value.filter((value)=>{
+                return value.selected === true
+            })
+        })
+        aux = aux.filter((value)=>{
+            return value.length === 1
+        })
+        return aux[0] !== undefined ? aux[0][0].name : ''
     }
 
 
@@ -59,14 +76,16 @@ const Resume = ({list})=>{
                     <OrderItem key={`${index}div`}>
                         <div>
                             {(item.complexity === 'yes')?
-                            <button key={`${index}pencil`} name={index} onClick={function(e){handlePlus(e)}}>pencil</button>:
+                            <button key={`${index}pencil`} name={index} onClick={function(e){handleVariants(e)}}>pencil</button>:
                             ''
                             }
                             <button key={`${index}plus`} name={index} onClick={function(e){handlePlus(e)}}>+</button>
                             <button key={`${index}minus`} name={index} onClick={function(e){handleMinus(e)}}>-</button>
                         </div>
                         <p>{item.count}</p>
+                        <div>
                         <p key={index}>{item.name}</p>
+                        </div>
                         <p>{item.price(item.name, item.count)}</p>
                     </OrderItem>
                     ))
