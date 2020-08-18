@@ -8,7 +8,7 @@ const OrderList = styled.div`
 
 const OrderItem = styled.ul`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 `
 
 const NoOrder = styled.p`
@@ -16,17 +16,18 @@ const NoOrder = styled.p`
 `
 
 const HistoryList = ({list})=>{
-    if(list.length === 0) return(
+    if(list[0].length === 0) return(
         <NoOrder>SIN ORDENES</NoOrder>
     )
     return(
         <React.Fragment>
             <OrderList>
-            {list.map((value, index)=>{
+            {list[0].map((value, index)=>{
                     return (
                         <OrderItem key={`${index} list`}>
                             <div key={`${index} name`}>{value.name}</div>
                             <div key={`${index} price`}>{value.price}</div>
+                            <div key={`${index} state`}>{value.state}</div>
                         </OrderItem>
                     )
                 })}

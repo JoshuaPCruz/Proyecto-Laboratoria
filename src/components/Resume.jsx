@@ -54,7 +54,8 @@ const Resume = ({list, variants,display, changeList, clientName, changeMock})=>{
         }
         const aux = {
             name: clientName,
-            price: total()
+            price: total(),
+            state: 'pendiente'
         }
         const input = document.getElementById("clientName")
         input.value= ''
@@ -79,10 +80,6 @@ const Resume = ({list, variants,display, changeList, clientName, changeMock})=>{
                     {orderList.map((item,index)=>(
                     <OrderItem key={`${index}div`}>
                         <div>
-                            {(item.complexity === 'yes')?
-                            <button key={`${index}pencil`} name={index} onClick={function(e){handleVariants(e)}}>pencil</button>:
-                            ''
-                            }
                             <button key={`${index}plus`} name={index} onClick={function(e){handlePlus(e)}}>+</button>
                             <button key={`${index}minus`} name={index} onClick={function(e){handleMinus(e)}}>-</button>
                         </div>

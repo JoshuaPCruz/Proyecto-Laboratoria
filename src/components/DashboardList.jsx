@@ -11,15 +11,16 @@ const MainList = styled.main`
 `
 
 
-const DashboardList = ({display, list})=>{
+const DashboardList = ({display, list, listPending})=>{
     const [mockList, changeMockList] = useState(list)
+    const [dataPending, changeDataPending] = useState(listPending)
     const handleClick = ()=>{
         display('none','block')
     }
     return (
         <React.Fragment>
                 <MainList>
-                    <PendingList list={mockList}></PendingList>
+                    <PendingList list={dataPending} setList={function(item){changeDataPending(item)}}></PendingList>
                     <HistoryList list={mockList}></HistoryList>
                     <button onClick={handleClick}>NUEVA ORDEN</button>
                 </MainList>

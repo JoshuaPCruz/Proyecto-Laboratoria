@@ -99,6 +99,7 @@ const Order = ({display, changeList, list})=> {
 
     const handleChange = (e)=>{
         changeClientName(e.target.value)
+        console.log(document.getElementById("clientName"))
     }
 
 

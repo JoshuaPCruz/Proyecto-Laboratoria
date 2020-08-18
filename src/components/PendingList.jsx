@@ -18,25 +18,28 @@ const NoOrder = styled.p`
 
 
 
-const PendingList = ({list})=>{
-
-    const [pendigList, setPendingList] = useState(list)
-
+const PendingList = ({list, setList})=>{
+    console.log(list)
+    const [pendingList, setPendingList] = useState(list[0])
+    console.log(pendingList)
     const handleClick = (e,index)=>{
-        let aux = pendigList
+        let aux = pendingList
+        let auxHistory = aux.map((value, indexHistory)=>{
+            indexHistory === index ? value.state = 'Ready' : ''
+        })
         aux = aux.filter((value, auxIndex)=>{
             return auxIndex !== index
         })
-        setPendingList(aux)
+        setList([aux])
     }
 
-    if(list.length === 0) return(
+    if(pendingList.length === 0) return(
         <NoOrder>SIN ORDENES</NoOrder>
     )
     return(
         <React.Fragment>
             <OrderList>
-            {pendigList.map((value, index)=>{
+            {pendingList.map((value, index)=>{
                     return (
                         <OrderItem key={`${index} list`} >
                             <div key={`${index} name`}>{value.name}</div>
