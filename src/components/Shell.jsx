@@ -1,5 +1,13 @@
 import React from 'react';
-import Order from "./Order";
+import {
+    BrowserRouter as Router,
+    Route
+  } from "react-router-dom";
+import Login from "./Login";
+import SignUp from "./SignUp";
+import Auth from "../Auth";
+import Home from "./Home";
+import Private from "./Private";
 import { createGlobalStyle } from 'styled-components';
 
 const Container = createGlobalStyle`
@@ -10,12 +18,20 @@ const Container = createGlobalStyle`
     }
 `;
 
+
 const Shell = () => {
+
     return (
-        <React.Fragment>
-            <Container/>
-            <Order></Order>
-        </React.Fragment>
+        <Auth>
+            <Router>
+                <Container/>
+                <div>
+                    <Private exact path="/" component={Home} />
+                    <Route exact path="/signup" component={SignUp} />
+                    <Route exact path="/login" component={Login} />
+                </div>
+            </Router>
+        </Auth>
     );
 };
 

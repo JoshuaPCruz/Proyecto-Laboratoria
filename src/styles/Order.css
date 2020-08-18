@@ -1,9 +1,0 @@
-.dashboard {
-    display: flex;
-    height: 10vh;
-}
-
-.dashboard_main{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}

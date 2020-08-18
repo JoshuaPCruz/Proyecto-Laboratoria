@@ -8,7 +8,7 @@ import CONST from "../behaviours/constants";
 import Modal from "./Modal";
 
 
-const Order = ()=> {
+const Order = ({display, changeList})=> {
 
     const [mock, changeMock] = useState([])
     const [variants, changeVariants] = useState('none')
@@ -16,6 +16,7 @@ const Order = ()=> {
     const [modalLista, changeModalLista] = useState({extras:[[{name:'test'}]]})
     const [ordenCompleta, changeOrden] = useState([])
     const [recipe, changeRecipe] = useState('')
+    const [clientName, changeClientName] = useState('')
 
 
     useEffect(()=>{
@@ -74,7 +75,6 @@ const Order = ()=> {
         }
         
         e.target.title === 'exit' ? changeVariants('none'):'';
-        if(e.target.title === 'send') return 0
 
         switch (e.target.dataset.complexity) {
             case 'yes':
@@ -96,13 +96,18 @@ const Order = ()=> {
         }
     }
 
+    const handleChange = (e)=>{
+        changeClientName(e.target.value)
+        console.log(clientName)
+    }
+
 
 
     return (
         <React.Fragment>
             <Styles.Dashboard>
                 <Styles.HeaderDashboard>
-                    <input type="text" name="name" id=""/>
+                    <input type="text" name="name" onChange={handleChange} placeholder={"NOMBRE DEL CLIENTE"}/>
                 </Styles.HeaderDashboard>
                 <Styles.MainDashboard>
                     <Styles.ModalVariants hidde={variants}  onClick={handleClick}>
@@ -119,7 +124,7 @@ const Order = ()=> {
                             ))}
                         </Styles.MenuItems>
                     </Styles.Menu>
-                    <Resume list={mock} variants={function(value, modalItems){changeVariants(value); changeModalLista(modalItems)}}></Resume>
+                    <Resume clientName={clientName} changeList={changeList} list={mock} display={display} variants={function(value, modalItems){changeVariants(value); changeModalLista(modalItems)}}></Resume>
                 </Styles.MainDashboard>
             </Styles.Dashboard>
         </React.Fragment>

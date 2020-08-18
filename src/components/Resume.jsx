@@ -18,7 +18,7 @@ const OrderList = styled.ul`
     overflow: scroll
 `
 
-const Resume = ({list, variants})=>{
+const Resume = ({list, variants,display, changeList, clientName})=>{
 
     const [orderList,changeOrderList] = useState(list)
     const [check,changeTotal] = useState(0)
@@ -44,8 +44,20 @@ const Resume = ({list, variants})=>{
     const handleVariants = (e)=>{
         let aux = variants
         const extras = orderList[e.target.name]
-        console.log(extras)
+        console.log('hola')
         aux('yes', extras)
+    }
+
+    const handleEnter = ()=>{
+        if(clientName === ''){
+            return alert("Ingrese nombre del cliente")
+        }
+        const aux = {
+            name: clientName,
+            price: total()
+        }
+        display('block','none');
+        changeList(aux)
     }
 
     const total = ()=>{
@@ -54,17 +66,6 @@ const Resume = ({list, variants})=>{
         res = res.reduce((actual, next)=>(parseInt(actual)+parseInt(next))):
         ''
         return res
-    }
-    const extras = (item)=>{
-        let aux = item.map((value)=>{
-            return value.filter((value)=>{
-                return value.selected === true
-            })
-        })
-        aux = aux.filter((value)=>{
-            return value.length === 1
-        })
-        return aux[0] !== undefined ? aux[0][0].name : ''
     }
 
 
@@ -97,7 +98,7 @@ const Resume = ({list, variants})=>{
                     
                 </OrderList>
                 {(orderList.length > 0)?
-                    <button onClick={function(){console.log(orderList[0].price())}}>ENVIAR</button>:
+                    <button onClick={handleEnter}>ENVIAR</button>:
                     ''
                 }
             </GeneralOrder>
