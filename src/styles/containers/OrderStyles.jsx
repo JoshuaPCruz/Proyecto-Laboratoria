@@ -34,7 +34,10 @@ const Styles = {
     z-index: 1; /* Sit on top */
     left: 30vw;
     top: 30vh;
-    `    
+`,
+    Input: styled.input`
+    width: 40vw;
+`     
 }
 
 export default Styles;

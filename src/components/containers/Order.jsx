@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Styles from "../../styles/OrderStyles";
+import Styles from "../../styles/containers/OrderStyles";
 import Resume from "./Resume";
 import Card from "../elements/Card";
 import Methods from "../../behaviours/methods";
@@ -19,8 +19,13 @@ const Order = ({display, changeList, list})=> {
     const [clientName, changeClientName] = useState('')
     const [clientNameValue, changeClientNameValue] = useState('')
 
-
+    /**
+     * This Observer, is set to add a new value t the order, rigth after the Modal sends his values
+     * As the modal sends his values in the form of [[Array]], it has to be filter twice
+     * Also the reduce is for calculatin the total price after the filters
+     */
     useEffect(()=>{
+
         let aux = ordenCompleta
         let auxMock = mock
         
@@ -48,7 +53,6 @@ const Order = ({display, changeList, list})=> {
             aux = aux.reduce((total, value)=>{
                 return total + value
             })
-            console.log(ordenCompleta)
             let resultado = Methods.factory({extraPrice: 0, name: `${recipe}${name} `, count:1, complexity: 'yes', extras:ordenCompleta, priceBase:5},)
             resultado.extraPrice = aux
             resultado.complexity = 'yes'
@@ -58,7 +62,10 @@ const Order = ({display, changeList, list})=> {
         changeVariants('none')
     },[ordenCompleta])
 
-
+    /**
+     * This function catches all the clicks in this component and 
+     * determines the action taken based on the target
+     */
     const handleClick = (e)=>{
         let aux = mock;
         let resultado;
@@ -97,9 +104,11 @@ const Order = ({display, changeList, list})=> {
         }
     }
 
+    /**
+     * Function to handle the change on the input text area
+     */
     const handleChange = (e)=>{
         changeClientName(e.target.value)
-        console.log(document.getElementById("clientName"))
     }
 
 
@@ -108,7 +117,7 @@ const Order = ({display, changeList, list})=> {
         <React.Fragment>
             <Styles.Dashboard>
                 <Styles.HeaderDashboard>
-                    <input id="clientName"type="text" name="name" onChange={handleChange} placeholder={"NOMBRE DEL CLIENTE"} />
+                    <Styles.Input id="clientName"type="text" name="name" onChange={handleChange} placeholder={"NOMBRE DEL CLIENTE"} />
                 </Styles.HeaderDashboard>
                 <Styles.MainDashboard>
                     <Styles.ModalVariants hidde={variants}  onClick={handleClick}>

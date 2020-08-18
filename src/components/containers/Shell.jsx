@@ -8,15 +8,7 @@ import SignUp from "./SignUp";
 import Auth from "../../Auth";
 import Home from "./Home";
 import Private from "./Private";
-import { createGlobalStyle } from 'styled-components';
-
-const Container = createGlobalStyle`
-    body {
-        padding: 0;
-        margin: 0;
-        touch-action: none;
-    }
-`;
+import Container from "../../styles/GlobalStyle";
 
 
 const Shell = () => {

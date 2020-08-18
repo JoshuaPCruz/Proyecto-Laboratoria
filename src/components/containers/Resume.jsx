@@ -1,22 +1,8 @@
 import React from "react";
-import styled from 'styled-components';
 import { useState,useEffect } from "react";
 import Methods from "../../behaviours/methods";
+import Styles from "../../styles/containers/ResumeStyles";
 
-
-const OrderItem = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-`
-
-const GeneralOrder = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-`
-const OrderList = styled.ul`
-    overflow: scroll
-`
 
 const Resume = ({list, variants,display, changeList, clientName, changeMock})=>{
 
@@ -29,25 +15,25 @@ const Resume = ({list, variants,display, changeList, clientName, changeMock})=>{
     }
     ,[list, orderList])
 
+    /**
+     * Handle the minus button event
+     */
     const handleMinus = (e)=>{
         let aux = list
         aux = Methods.removeItem(aux, e.target.name)
         changeOrderList([...aux])
     }
-
+    /**
+     * Handle the plus button event
+     */
     const handlePlus = (e)=>{
         let aux = list
         aux = Methods.addItem(aux, e.target.name)
         changeOrderList([...aux])
     }
-
-    const handleVariants = (e)=>{
-        let aux = variants
-        const extras = orderList[e.target.name]
-        console.log('hola')
-        aux('yes', extras)
-    }
-
+    /**
+     * Handles when an order is complete
+     */
     const handleEnter = ()=>{
         if(clientName === ''){
             return alert("Ingrese nombre del cliente")
@@ -63,7 +49,9 @@ const Resume = ({list, variants,display, changeList, clientName, changeMock})=>{
         display('block','none');
         changeList(aux)
     }
-
+    /**
+     * Calculates the total of the order
+     */
     const total = ()=>{
         let res = orderList.map((value)=>(value.price()))
         res.length !== 0 ?
@@ -75,10 +63,10 @@ const Resume = ({list, variants,display, changeList, clientName, changeMock})=>{
 
     return (
         <React.Fragment>
-            <GeneralOrder>
-                <OrderList>
+            <Styles.GeneralOrder>
+                <Styles.OrderList>
                     {orderList.map((item,index)=>(
-                    <OrderItem key={`${index}div`}>
+                    <Styles.OrderItem key={`${index}div`}>
                         <div>
                             <button key={`${index}plus`} name={index} onClick={function(e){handlePlus(e)}}>+</button>
                             <button key={`${index}minus`} name={index} onClick={function(e){handleMinus(e)}}>-</button>
@@ -87,21 +75,21 @@ const Resume = ({list, variants,display, changeList, clientName, changeMock})=>{
                         <div>
                         <p key={index}>{item.name}</p>
                         </div>
-                        <p>{item.price(item.name, item.count)}</p>
-                    </OrderItem>
+                        <p>{`$${item.price(item.name, item.count)}`}</p>
+                    </Styles.OrderItem>
                     ))
                     }
                     {(orderList.length > 0)?
-                    <p>TOTAL {check}</p>:
+                    <p>{`TOTAL     $${check}`}</p>:
                     ''
                     }
                     
-                </OrderList>
+                </Styles.OrderList>
                 {(orderList.length > 0)?
                     <button onClick={handleEnter}>ENVIAR</button>:
                     ''
                 }
-            </GeneralOrder>
+            </Styles.GeneralOrder>
         </React.Fragment>
     )
 }
