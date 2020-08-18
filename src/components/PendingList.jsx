@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 
@@ -17,20 +17,32 @@ const NoOrder = styled.p`
 `
 
 
+
 const PendingList = ({list})=>{
+
+    const [pendigList, setPendingList] = useState(list)
+
+    const handleClick = (e,index)=>{
+        let aux = pendigList
+        aux = aux.filter((value, auxIndex)=>{
+            return auxIndex !== index
+        })
+        setPendingList(aux)
+    }
+
     if(list.length === 0) return(
         <NoOrder>SIN ORDENES</NoOrder>
     )
     return(
         <React.Fragment>
             <OrderList>
-            {list.map((value, index)=>{
+            {pendigList.map((value, index)=>{
                     return (
-                        <OrderItem key={`${index} list`}>
+                        <OrderItem key={`${index} list`} >
                             <div key={`${index} name`}>{value.name}</div>
                             <div key={`${index} price`}>{value.price}</div>
                             <div>
-                                <button>MARCAR COMO LISTA</button>
+                                <button onClick={function(e,item = value){handleClick(e,index)}}>MARCAR COMO LISTA</button>
                             </div>
                         </OrderItem>
                     )

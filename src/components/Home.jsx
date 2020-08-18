@@ -14,6 +14,7 @@ const Home = ()=>{
     const [page, changePage] = useState('block')
     const [page2, changePage2] = useState('none')
     const [list, changeList] = useState([])
+    const [listOrder, changeListOrder] = useState([])
 
     const updateList = (item)=>{
         let aux = list
@@ -27,7 +28,7 @@ const Home = ()=>{
                 <DashboardList list={list} display={function(item1, item2){changePage(item1), changePage2(item2)}}></DashboardList>
             </List>
             <List hidde={page2}>
-                <Order changeList={function(item){updateList(item)}} display={function(item1, item2){changePage(item1), changePage2(item2)}}></Order>
+                <Order list={listOrder} changeList={function(item){updateList(item)}} display={function(item1, item2){changePage(item1), changePage2(item2)}}></Order>
             </List>
         </React.Fragment>                            
     )

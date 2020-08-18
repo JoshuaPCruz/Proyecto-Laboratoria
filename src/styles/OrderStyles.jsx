@@ -31,7 +31,9 @@ const Styles = {
     ModalVariants: styled.div`
     display: ${props=> props.hidde};
     position: fixed;
-    
+    z-index: 1; /* Sit on top */
+    left: 30vw;
+    top: 30vh;
     `    
 }
 

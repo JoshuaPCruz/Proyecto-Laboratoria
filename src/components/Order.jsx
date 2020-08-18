@@ -8,15 +8,16 @@ import CONST from "../behaviours/constants";
 import Modal from "./Modal";
 
 
-const Order = ({display, changeList})=> {
+const Order = ({display, changeList, list})=> {
 
-    const [mock, changeMock] = useState([])
+    const [mock, changeMock] = useState(list)
     const [variants, changeVariants] = useState('none')
     const [menu, changeMenu] = useState(CONST.BREAKFAST)
     const [modalLista, changeModalLista] = useState({extras:[[{name:'test'}]]})
     const [ordenCompleta, changeOrden] = useState([])
     const [recipe, changeRecipe] = useState('')
     const [clientName, changeClientName] = useState('')
+    const [clientNameValue, changeClientNameValue] = useState('')
 
 
     useEffect(()=>{
@@ -98,7 +99,6 @@ const Order = ({display, changeList})=> {
 
     const handleChange = (e)=>{
         changeClientName(e.target.value)
-        console.log(clientName)
     }
 
 
@@ -107,7 +107,7 @@ const Order = ({display, changeList})=> {
         <React.Fragment>
             <Styles.Dashboard>
                 <Styles.HeaderDashboard>
-                    <input type="text" name="name" onChange={handleChange} placeholder={"NOMBRE DEL CLIENTE"}/>
+                    <input id="clientName"type="text" name="name" onChange={handleChange} placeholder={"NOMBRE DEL CLIENTE"} />
                 </Styles.HeaderDashboard>
                 <Styles.MainDashboard>
                     <Styles.ModalVariants hidde={variants}  onClick={handleClick}>
@@ -124,7 +124,7 @@ const Order = ({display, changeList})=> {
                             ))}
                         </Styles.MenuItems>
                     </Styles.Menu>
-                    <Resume clientName={clientName} changeList={changeList} list={mock} display={display} variants={function(value, modalItems){changeVariants(value); changeModalLista(modalItems)}}></Resume>
+                    <Resume clientName={clientName} changeMock={function(item, item2){changeMock(item); changeClientNameValue(item2)}} changeList={changeList} list={mock} display={display} variants={function(value, modalItems){changeVariants(value); changeModalLista(modalItems)}}></Resume>
                 </Styles.MainDashboard>
             </Styles.Dashboard>
         </React.Fragment>

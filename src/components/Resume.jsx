@@ -18,7 +18,7 @@ const OrderList = styled.ul`
     overflow: scroll
 `
 
-const Resume = ({list, variants,display, changeList, clientName})=>{
+const Resume = ({list, variants,display, changeList, clientName, changeMock})=>{
 
     const [orderList,changeOrderList] = useState(list)
     const [check,changeTotal] = useState(0)
@@ -56,6 +56,9 @@ const Resume = ({list, variants,display, changeList, clientName})=>{
             name: clientName,
             price: total()
         }
+        const input = document.getElementById("clientName")
+        input.value= ''
+        changeMock([])
         display('block','none');
         changeList(aux)
     }
