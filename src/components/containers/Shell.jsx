@@ -5,7 +5,7 @@ import {
   } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import Auth from "../Auth";
+import Auth from "../../Auth";
 import Home from "./Home";
 import Private from "./Private";
 import { createGlobalStyle } from 'styled-components';

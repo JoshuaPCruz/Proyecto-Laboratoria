@@ -1,8 +1,8 @@
 import React from "react";
 import {useState} from 'react';
-import DashboardList from "./DashboardList";
+import DashboardList from "../elements/DashboardList";
 import Order from "./Order";
-import app from "../firebase.js";
+import app from "../../firebase.js";
 import styled from 'styled-components';
 
 const List = styled.div`

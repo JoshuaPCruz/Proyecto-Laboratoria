@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import { useState,useEffect } from "react";
-import Methods from "../behaviours/methods";
+import Methods from "../../behaviours/methods";
 
 
 const OrderItem = styled.div`

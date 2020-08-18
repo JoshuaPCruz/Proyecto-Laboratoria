@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Styles from "../styles/OrderStyles";
+import Styles from "../../styles/OrderStyles";
 import Resume from "./Resume";
-import Card from "./Card";
-import Methods from "../behaviours/methods";
-import CONST from "../behaviours/constants";
-import Modal from "./Modal";
+import Card from "../elements/Card";
+import Methods from "../../behaviours/methods";
+import CONST from "../../behaviours/constants";
+import Modal from "../elements/Modal";
 
 
 const Order = ({display, changeList, list})=> {
